@@ -1,0 +1,63 @@
+@Library('Devops-learning-shared-library') _
+
+pipeline {
+
+    agent any
+
+    parameters {
+
+        string(
+            name: 'GIT_REPO',
+            defaultValue: 'https://github.com/mysampleaccoun/Devops-learning.git',
+            description: 'Application Git repository'
+        )
+
+        string(
+            name: 'GIT_BRANCH',
+            defaultValue: 'devops-aws',
+            description: 'Application Git branch'
+        )
+
+        string(
+            name: 'IMAGE_NAME',
+            defaultValue: 'jenkins-demo',
+            description: 'Docker image name'
+        )
+
+        string(
+            name: 'ECR_REPOSITORY',
+            defaultValue: 'jenkins/docker_basic',
+            description: 'ECR repository'
+        )
+
+        choice(
+            name: 'AWS_REGION',
+            choices: ['ap-south-1', 'us-east-1'],
+            description: 'AWS region'
+        )
+
+        string(
+            name: 'IMAGE_TAG',
+            defaultValue: 'latest',
+            description: 'Docker image tag'
+        )
+    }
+
+    stages {
+
+        stage('Docker → ECR') {
+
+            steps {
+
+                dockerEcrPipeline(
+                    gitRepo: params.GIT_REPO,
+                    gitBranch: params.GIT_BRANCH,
+                    imageName: params.IMAGE_NAME,
+                    ecrRepository: params.ECR_REPOSITORY,
+                    awsRegion: params.AWS_REGION,
+                    imageTag: params.IMAGE_TAG
+                )
+            }
+        }
+    }
+}
