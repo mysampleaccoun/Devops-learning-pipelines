@@ -8,25 +8,21 @@ pipeline {
 
         string(
             name: 'GIT_REPO',
-            defaultValue: 'https://github.com/mysampleaccoun/Devops-learning.git',
             description: 'Application Git repository'
         )
 
         string(
             name: 'GIT_BRANCH',
-            defaultValue: 'devops-aws',
             description: 'Application Git branch'
         )
 
         string(
             name: 'IMAGE_NAME',
-            defaultValue: 'jenkins-demo',
             description: 'Docker image name'
         )
 
         string(
             name: 'ECR_REPOSITORY',
-            defaultValue: 'jenkins/docker_basic',
             description: 'ECR repository'
         )
 
@@ -38,7 +34,6 @@ pipeline {
 
         string(
             name: 'IMAGE_TAG',
-            defaultValue: 'latest',
             description: 'Docker image tag'
         )
     }
